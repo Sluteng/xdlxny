@@ -1,0 +1,90 @@
+{extend name="index/base"/} {block name="tdk"} {volist name="tdkResult" id="tdk"} {volist name="productResult" id="product"} {if $product.title==null}
+<title>{$tdk.title}</title>
+{else}
+<title>{$product.title}</title>
+{/if}
+<meta name="description" content="{$product.description}" /> {if $product.keywords==null}
+<meta name="keywords" content="{$tdk.keywords}" /> {else}
+<meta name="keywords" content="{$product.keywords}" /> {/if} {/volist} {/volist} {/block} {block name="css"}
+<link rel="stylesheet" href="__CSS__/product.css"> {/block} {block name="content"}
+
+<section class="container wow flipInX" data-wow-delay=".1s">
+    <ol class="breadcrumb">
+        {volist name="tdkResult" id="tdk"}
+        <li><a href="/{$tdk.href}.html">{$tdk.name}</a></li>
+        {/volist} 
+        {volist name="proResult" id="pro"}
+        <li class="active"><a href="/{$pro.href}.html">{$pro.name}</a></li>
+        {/volist} 
+        {volist name="mainResult" id="main"}
+        {foreach $arrhome8 as $key=>$value} 
+        {if $key==$main.id}
+        <li class="active"><a href="/battery/{$value}.html">{$main.name}</a></li>
+        {/if} 
+        {/foreach} 
+        {/volist} 
+        {volist name="productResult" id="product"}
+        <li class="active">{$product.name}</li>
+        {/volist}
+    </ol>
+</section>
+
+<section class="news container">
+    <div class="row">
+        <div class="left-content col-lg-9 col-sm-12 col-xs-12">
+            {volist name="productResult" id="product"}
+            <div class="row details">
+                <div class="col-lg-6 col-sm-6 product-img">
+                    <img src="{$product.img}" alt="" class="img-thumbnail">
+                </div>
+                <div class="col-lg-6 col-sm-6 clearfix">
+                    <h2 style="font-size: 24px;">{$product.name}</h2>
+                    {$product.content|htmlspecialchars_decode}
+                    <div class="col-lg-5 text-center online">
+                        <a href="../message.html">Consultation</a>
+                    </div>
+       <!--              {volist name="contactResult" id="contact"}
+                    <div class="col-lg-5 col-lg-offset-2 text-center online">
+                        {$contact.phone}
+                    </div>
+                    {/volist} -->
+                </div>
+                <div class="clearfix col-lg-12" style="margin-top: 10px;">
+                    <div class="details-title">
+                        <span>Details</span>
+                    </div>
+                    <div class="details-content">
+                        <div class="table-responsive">
+                            {$product.editorValue|htmlspecialchars_decode}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/volist}
+            <div class="news-page clearfix">
+                {if $prev==null}
+                <a href="">Previous page：<span>period</span></a> {else} 
+                {volist name="$prev" id="pre"} 
+                {foreach $arrhome11 as $key=>$value} 
+                {if $key==$pre.id}
+                <a href="/product2/{$value}.html">Previous page：<span>{$pre.name}</span></a> {/if} 
+                {/foreach} 
+                {/volist} 
+                {/if} 
+                {if $next==null}
+                <a href="" class="pull-right">next page：<span>period</span></a> {else} 
+                {volist name="$next" id="nex"} 
+                {foreach $arrhome12 as $key=>$value} 
+                {if $key==$nex.id}
+                <a href="/product2/{$value}.html">next page：<span>{$nex.name}</span></a> 
+                {/if} 
+                {/foreach} 
+                {/volist} 
+                {/if}
+            </div>
+        </div>
+
+        {include file="index/right" /}
+    </div>
+</section>
+{/block}

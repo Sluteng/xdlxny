@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+     {block name="tdk"} 
+     {volist name="tdkResult" id="tdk"}
+     <title>{$tdk.title}</title>
+     <meta name="description" content="{$tdk.description}"/>
+     <meta name="keywords" content="{$tdk.keywords}"/>
+     {/volist}
+     {/block}
+    <meta name="author" content="ChangXing Web">
+    <link rel="Bookmark" href="__ROOT__/favicon.ico" >
+    <link rel="Shortcut Icon" href="__ROOT__/favicon.ico" />
+    <link rel="stylesheet" href="__CSS__/bootstrap.css">
+    <link rel="stylesheet" href="__CSS__/common.css">
+    {block name="css"}<link rel="stylesheet" href="__CSS__/index.css">{/block}
+    <link rel="stylesheet" href="__CSS__/iconfont.css">
+    <link rel="stylesheet" href="__CSS__/animate.css">
+    <script src="__JS__/jquery-3.4.1.js"></script>
+    <script src="__JS__/bootstrap.min.js"></script>
+    <script src="__JS__/main.js"></script>
+    <script src="__JS__/wow.min.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Z9IqUxUZE6aiNhtCEx5xIUlipaOzziOD"></script>
+        <style>
+            .anchorBL{
+                display:none; 
+            }
+        </style>
+</head>
+<body>
+<!--  head  -->
+<header>
+    <div class="header-top hidden-xs wow fadeInDown" data-wow-delay=".1s">
+        <div class="container clearfix">
+            <ul class="inline-list list-unstyled pull-left">
+                {volist name="contactResult" id="contact"}
+                <li><span class="iconfont">&#xe601;</span> {$contact.phone}</li>
+                <li><span class="iconfont">&#xe6f2;</span> {$contact.email}</li>
+                {/volist}
+            </ul>
+             <!-- search box -->
+            <div class="language pull-right">
+                <p><a href="http://www.xdlhb.cn">CN</a><a href="http://www.xdl-hb.com" style="color: #ff9000;">EN</a></p>
+            </div>
+            <div class="search pull-right" >
+               <form  action="/search.html" enctype="multipart/form-data" method="post">
+                   <input  name="name" type="text"  value='' placeholder="Please enter what you want to search for" class="form-control" id="name"/>
+                   <button type="submit" class="btn" id="xdl"/></button>
+               </form>
+            </div>
+        </div>
+    </div>
+    <!--  navigation -->
+    <nav class="navbar navbar-default wow fadeInLeft" data-wow-delay=".1s">
+        <div class="container">
+            <div class="navbar-header">
+                {volist name="inforResult" id="infor"}
+                <h1><a href="/index" class="navbar-brand hidden-sm"><img src="{$infor.logo}" alt="companyLOGO" class="img-responsive"></a></h1>
+                {/volist}
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    {volist name="navberResult" id="navber"}
+                    <li class="{if $navber.href==$foo}active{/if}"><a href="/{$navber.href}.html">{$navber.name}</a></li>
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+{block name="banner"}
+{volist name="xdlResult" id="xdl"}
+<section class="banner wow fadeIn" data-wow-delay=".2s">
+    <img src="{$xdl.img}" alt="{$xdl.title}">
+</section>
+{/volist}
+{/block}
+{block name="content"}{/block}
+<!--  tail  -->
+<footer class="footer wow fadeInUp" data-wow-delay=".1s">
+    <div class="container">
+        <!-- flist1 start -->
+        <div class="flist1 pull-left">
+            <p class="footer-title">Navigation</p>
+            <ul class="clearfix list-unstyled">
+                {volist name="navberResult" id="navber"}
+                <li><a href="/{$navber.href}.html" title="{$navber.name}">{$navber.name}</a></li>
+                {/volist}
+            </ul>
+            <div class="f-follow">
+                <a href="https://www.facebook.com/facebook/" target="_blank" rel="nofollow"><i class="iconfont icon-facebook"></i></a>      <a href="https://www.instagram.com/" target="_blank" rel="nofollow"><i class="iconfont icon-insgram"></i></a>     <a href="https://www.Twitter.com/Twitter/" target="_blank" rel="nofollow"><i class="iconfont icon-twitter"></i></a>     <a href="https://www.YouTube.com/YouTube/" target="_blank" rel="nofollow"><i class="iconfont icon-youtube"></i></a>     <a href="https://www.Pinterest.com/Pinterest/" target="_blank" rel="nofollow"><i class="iconfont icon-pinterest"></i></a>     <a href="https://www.linkedin.com/" target="_blank" rel="nofollow"><i class="iconfont icon-linkedin"></i></a>     </div>
+        </div>
+        <!-- flist3 start -->
+        <div class="flist3 pull-right" data-scroll-reveal="enter right over 1s after 1s" data-scroll-reveal-id="5" data-scroll-reveal-initialized="true" data-scroll-reveal-complete="true">
+            <p class="footer-title">Contact Us</p>
+            <ul class="list-unstyled">
+                {volist name="contactResult" id="contact"}
+                <li>Add: {$contact.ADD}</li>
+                <li>Fax:  {$contact.FAXS}</li>
+                <li>Skype: <a href="skype:live:.cid.d171c2752b58c2c2?chat" target="_blank"> {$contact.Skype}</a></li>
+                <li>E-mail: <a href="mailto:hbxdl@hbxinpower.com"> {$contact.EMails}</a></li>
+                {/volist}
+                {volist name="copyResult" id="copy"}
+                <li>{$copy.copyright} <a href="/admin" target="_blank">©</a> {$copy.record}<br>
+                    <a href="/sitemap (5).xml" target="_blank">{$copy.Sitemap}</a>
+                    {$copy.Powered}
+                    <a target="_blank">{$copy.Cnzz}</a>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+        <!-- flist2 start -->
+        <div class="flist2 pull-left" data-scroll-reveal="enter right over 1s after 0.5s" data-scroll-reveal-id="6" data-scroll-reveal-initialized="true" data-scroll-reveal-complete="true">
+            <p class="footer-title">Request a Quote</p>
+            <div class="f-form">
+                <form action="/centers.html" method="post">
+                    <div class="item-row clearfix">
+                        <div class="item-input star pull-left">
+                            <input type="text" name="name" placeholder="Name">
+                        </div>
+                        <div class="item-input star pull-right">
+                            <input type="text" name="mailbox" placeholder="E-mailbox">
+                        </div>
+                    </div>
+                    <div class="item-row star">
+                        <input type="text" name="phone" placeholder="phone">
+                    </div>
+                    <div class="item-row star">
+                        <textarea name="content" placeholder="content"></textarea>
+                    </div>
+                    <div class="item-row clearfix">
+                        <div class="star item-codeinput pull-left">
+                            <input type="text" name="captcha" id="verifyf" placeholder="captcha">
+                        </div>
+                        <div class="yzm">
+                            <img id="captcha"  src="{:captcha_src()}" alt="verification code" title="Click refresh captcha" style="cursor:pointer;width: 130px;height:40px;">
+                        <input type="submit" name="submit" value="Send" id="verifyfid" class="send-btn pull-right" onclick="return submitMsg_foot()" value="1">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- <div class="clear"> </div> -->
+        <!-- <p class="link" data-scroll-reveal="enter right over 1s after 0s" data-scroll-reveal-id="7" data-scroll-reveal-initialized="true" data-scroll-reveal-complete="true">
+        </p> -->
+            <!-- {volist name="copyResult" id="copy"}
+        <p class="copyright">{$copy.copyright} <a href="/admin">©</a> {$copy.record}<br>
+            <a href="sitemap.xml" target="_blank">{$copy.Sitemap}</a>
+            {$copy.Powered}</p>
+                {/volist} -->
+    </div>
+</footer>
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__LIB__/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
+<script>
+    $(function () {
+        $("#captcha").click(function () {
+            $(this).attr("src","{:captcha_src()}?t="+new Date().getTime())
+        });
+        $("#form").Validform({
+            callback:function(ret){
+                if (ret.code){
+                    if (ret.msg == 'Verification code error!'){
+                        $("#captcha").click();
+                        $("[name='captcha']").val('');
+                        layer.msg(ret.msg);
+                    } else {
+                        layer.alert(ret.msg);
+                    }
+                } else {
+                    layer.msg("login successfully ！");
+                    location.href = '{$Request.get.callback ?: \\think\\Url::build("Index/index")}';
+                }
+            }
+        });
+    })
+</script>
+<script type="text/javascript">
+  $(function () {
+      $('#xdl').click(function () {
+          var name=$('#name').val();
+          if(name ==  null || name == ''){
+              alert("Please enter what you want to search for");
+              return false;
+          };
+      })
+  })
+</script>
+<script type="text/javascript">
+  $(function () {
+      $('#searchsubmit').click(function () {
+          var name=$('#s').val();
+          if(name ==  null || name == ''){
+              alert("Please enter keywords");
+              return false;
+          };
+      })
+  })
+</script>
+{block name="JS"}{/block}
+</body>
+</html>

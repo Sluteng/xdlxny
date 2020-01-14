@@ -1,0 +1,98 @@
+{extend name="index/base"/}
+{block name="tdk"} 
+{volist name="tdkResult" id="tdk"}
+{volist name="messResult" id="mess"}
+{if $mess.title==null}
+<title>{$tdk.title}</title>
+{else}
+<title>{$mess.title}</title>
+{/if}
+<meta name="description" content="{$mess.description}" />
+{if $mess.keywords==null}
+<meta name="keywords" content="{$tdk.keywords}"/>
+{else}
+<meta name="keywords" content="{$mess.keywords}"/>
+{/if}
+{/volist}
+{/volist}
+{/block}
+{block name="css"} 
+<link rel="stylesheet" href="__CSS__/message.css">
+{/block}
+{block name="content"}
+
+<section class="container wow flipInX" data-wow-delay=".1s">
+    <ol class="breadcrumb">
+        {volist name="tdkResult" id="tdk"}
+        <li><a href="/{$tdk.href}.html">{$tdk.name}</a></li>
+        {/volist}
+        {volist name="messResult" id="mess"}
+        <li class="active">{$mess.name}</li>
+        {/volist}
+    </ol>
+</section>
+
+<section class="container" style="margin-bottom: 20px;">
+    <div class="row">
+        <div class="left-content col-lg-9 wow bounceInLeft" data-wow-delay=".2s">
+            <form action="/centers.html"  enctype="multipart/form-data" method="post" id="form">
+                <div class="from-group ">
+                    <label for="">Full name</label>
+                    <input type="text" name="name" class="form-control" placeholder="( Must fill in )" id="names">
+                </div>
+                <div class="from-group">
+                    <label for="">mailbox</label>
+                    <input type="text" name="mailbox" class="form-control" id="mail" placeholder="( Must fill in )">
+                </div>
+                <div class="from-group">
+                    <label for="">Telephone</label>
+                    <input type="text" name="phone" class="form-control" id="tel">
+                </div>
+                <div class="from-group">
+                    <label for="">Message subject</label>
+                    <input type="text" name='titles' class="form-control" id="titles" placeholder="( Must fill in )" >
+                </div>
+                <div class="from-group">
+                    <label for="">Message content</label><br>
+                    <textarea name='content' id="" cols="30" rows="10" style="width: 70%;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;"></textarea>
+                </div>
+                <div class="from-group">
+                    <label for="">enter the verification code</label><br>
+                    <input type="text" name="captcha" class="form-control pull-left" placeholder="enter the verification code" id="yzm">
+                    <div class="yzm">
+                        <img id="captcha"  src="{:captcha_src()}" alt="verification code" title="Click refresh captcha" style="cursor:pointer;width: 150px;height: 35px;margin-left:10px;">
+                    </div>
+                </div>
+                <input type="submit" name="submit" value="Submitted" class="btn btn-primary" id="check"/>  
+            </form>
+        </div>
+       {include file="index/right" /}
+    </div>
+</section>
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__LIB__/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
+<script>
+    $(function () {
+        $("#captcha").click(function () {
+            $(this).attr("src","{:captcha_src()}?t="+new Date().getTime())
+        });
+        $("#form").Validform({
+            callback:function(ret){
+                if (ret.code){
+                    if (ret.msg == 'Verification code error!'){
+                        $("#captcha").click();
+                        $("[name='captcha']").val('');
+                        layer.msg(ret.msg);
+                    } else {
+                        layer.alert(ret.msg);
+                    }
+                } else {
+                    layer.msg("login successfully！");
+                    location.href = '{$Request.get.callback ?: \\think\\Url::build("Index/index")}';
+                }
+            }
+        });
+    })
+</script>
+{/block}
